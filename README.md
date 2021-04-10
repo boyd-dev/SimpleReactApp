@@ -5,7 +5,7 @@
   디렉토리인 `/resources/static/` 아래로 복사합니다.
     
 * Gradle Plugin for Node  
-  스프링 부트의 build.grade 스크립트에서 프론트엔드 애플리케이션을 빌드를 할 수 있습니다. Node.js 빌드 플러그인을 사용합니다.
+  스프링 부트의 build.gradle 스크립트에서 프론트엔드 애플리케이션을 빌드를 할 수 있습니다. Node.js 빌드 플러그인을 사용합니다.
   [Gradle Plugin for Node](https://github.com/node-gradle/gradle-node-plugin) 을 플러그인으로 추가합니다. 
   
   ```shell
