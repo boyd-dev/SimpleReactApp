@@ -14,5 +14,10 @@ export const getCookie = (name) => {
             return unescape(document.cookie.substring(offset, end));
         }
     }
-    return null;
+    
+    let FLAG_DEV = null;
+    if (process.env.REACT_APP_DEV) {
+        FLAG_DEV = "true";
+    }
+    return FLAG_DEV;
 }
