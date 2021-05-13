@@ -1,6 +1,6 @@
 ## 프론트엔드 애플리케이션
 
-스프링부트를 백엔드 REST API서버로, 리액트 애플리케이션을 프론트엔드로 하는 간단한 게시판입니다. 
+스프링 부트를 [백엔드](https://github.com/boyd-dev/SimpleSpringBootBoard) REST API서버로, 리액트 애플리케이션을 프론트엔드로 하는 간단한 게시판입니다. 
   
 * 프론트엔드 애플리케이션  
   react.js를 기반으로 프론트엔드 애플리케이션이 작성되어 있습니다. 사용된 주요 라이브러리들은 다음과 같습니다.
@@ -54,18 +54,19 @@
   ImageStyle,
   ImageResize,
   ImageToolbar,
-  ImageUpload;
+  ImageUpload,
   ```
   에디터에서 이미지를 첨부하면 즉시 백엔드 서버에 업로드되면서 리턴되는 링크를 내용에 삽입합니다. 이 기능은 CKEditor의 "업로드 adapter"에 의해 이루어집니다. 
-  업로드 adapter는 개발자가 가이드에 따라 직접 구현해주어야 하지만 CKEditor에서 제공되는 어댑터인 ["Simple upload adapter"](https://ckeditor.com/docs/ckeditor5/latest/features/image-upload/simple-upload-adapter.html) 를 사용합니다. 
+  업로드 adapter는 개발자가 가이드에 따라 직접 구현해주어야 하지만 CKEditor에서 제공되는 ["Simple upload adapter"](https://ckeditor.com/docs/ckeditor5/latest/features/image-upload/simple-upload-adapter.html) 를 사용합니다. 
   
 
 * react-redux, redux-saga  
-  상태 관리와 백엔드 서버와의 데이터 송수신과 위해 "리액트 리덕스"와 "리덕스 사가"를 사용합니다. 리액트 Hook의 도입으로 리액트 리덕스를 보다 쉽게 사용할 수 있게 되었습니다.  
+  상태 관리와 백엔드 서버와의 데이터 송수신과 위해 "리액트 리덕스"와 "리덕스 사가"를 사용합니다. 리액트 Hook의 도입으로 리액트 리덕스를 보다 쉽게 사용할 수 있게 되었습니다.
   `useSelector`와 `useDispatch`를 사용하면 리덕스 스토어에 저장된 값들을 쉽게 참조하고 또 필요한 액션을 디스패치 할 수 있습니다.
   
   그리고 백엔드 서버의 API를 호출하기 위해 `axios`와 미들웨어인 리덕스 사가를 사용하여 보다 체계적인 절차에 따라 데이터를 받을 수 있습니다. 예를 들어
-조회의 경우는 다음과 같은 순서에 의해 처리됩니다.
+조회의 경우는 다음과 같은 순서에 의해 처리됩니다.  
+  
   
   1. `GET_LIST` 액션이 디스패치되면 해당 액션을 사가 함수가 캐치(`takeLatest`)합니다. 이 액션은 백엔드 서버 API 호출이므로 쿠키에 JWT가 있는지 확인합니다.
   2. JWT가 존재하면 사가 함수는 다시 `GET_LIST_CALL` 액션을 디스패치(`yield put`)합니다. 
