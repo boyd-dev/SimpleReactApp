@@ -50,19 +50,31 @@
 * CKEditor 이미지 게시판    
   CKEditor의 이미지 게시판은 다음 플러그인에 의해 활성화됩니다. 
   ```
-  Image,
-  ImageStyle,
-  ImageResize,
-  ImageToolbar,
-  ImageUpload,
+  Editor.builtinPlugins = [
+     ...,
+     Image,
+     ImageStyle,
+     ImageResize,
+     ImageToolbar,
+     ImageUpload,
+     ...
+  ]
   ```
   에디터에서 이미지를 첨부하면 즉시 백엔드 서버에 업로드되면서 리턴되는 링크를 내용에 삽입합니다. 이 기능은 CKEditor의 "업로드 adapter"에 의해 이루어집니다. 
   업로드 adapter는 개발자가 가이드에 따라 직접 구현해주어야 하지만 CKEditor에서 제공되는 ["Simple upload adapter"](https://ckeditor.com/docs/ckeditor5/latest/features/image-upload/simple-upload-adapter.html) 를 사용합니다. 
+  `ckeditor.js`에 다음을 추가합니다.
   
+   ```
+   import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
+   Editor.builtinPlugins = [
+      ...,
+      SimpleUploadAdapter
+   ]
+   ```  
 
 * react-redux, redux-saga  
   상태 관리와 백엔드 서버와의 데이터 송수신과 위해 "리액트 리덕스"와 "리덕스 사가"를 사용합니다. 리액트 Hook의 도입으로 리액트 리덕스를 보다 쉽게 사용할 수 있게 되었습니다.
-  `useSelector`와 `useDispatch`를 사용하면 리덕스 스토어에 저장된 값들을 쉽게 참조하고 또 필요한 액션을 디스패치 할 수 있습니다.
+  `useSelector`와 `useDispatch`를 사용하면 스토어에 저장된 값들을 쉽게 참조하고 다음 액션을 디스패치 할 수 있습니다.
   
   그리고 백엔드 서버의 API를 호출하기 위해 `axios`와 미들웨어인 리덕스 사가를 사용하여 보다 체계적인 절차에 따라 데이터를 받을 수 있습니다. 예를 들어
 조회의 경우는 다음과 같은 순서에 의해 처리됩니다.  
@@ -79,22 +91,28 @@
 
 
 * react-router-dom  
-SPA는 단일 페이지 애플리케이션이므로 게시판의 기능상 목록, 쓰기, 읽기 등의 페이지로 전환할 필요가 있습니다. 그래서 리액트 라우터를 사용합니다.
+  SPA는 단일 페이지 애플리케이션이므로 게시판의 기능상 목록, 쓰기, 읽기 등의 페이지로 전환할 필요가 있습니다. 그래서 리액트 라우터를 사용합니다.
   
   여기서는 프론트엔드와 백엔드 애플리케이션이 스프링부트 내장 톰켓에 의해 함께 구동되므로 웹브라우저의 모든 요청은 백엔드 서버가 받습니다. 백엔드 서버는 기본적으로 유효한 JWT가 있는 API 호출만 처리합니다.
   문제는 프론트엔드의 react-router에서 라우팅되는 요청도 백엔드가 받게 된다는 것입니다. 그래서 리액트 라우터의 요청 패턴을 구분할 필요가 있습니다. 다음과 같이 
   `/app/**`로 시작하는 패턴으로 라우팅 URL을 정합니다. 
   
    ```javascript
+   import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
    <Switch>
         <Route path="/app/list"  component={List} />
         <Route path="/app/read"  component={ReadAndModify} />
         <Route path="/app/write" component={Write} />
    </Switch>
    ```
-   
+   백엔드 측에서는 이 요청을 다시 `index.html`로 포워딩하고 리액트 라우터가 처리하게 됩니다.  
+
+
+* react-js-pagination  
+  게시판 목록의 페이징을 위해서 `react-js-pagination` 라이브러리를 사용합니다. 이 라이브러리는 부트스트랩에 의존성을 가지므로 부트스트랩을 추가합니다.  
+  
 
 * styled-components, bootstrap  
-  `styled-components`을 사용하여 레이아웃을 정합니다. 스타일시트는 부트스트랩 3.3을 적용합니다.
+  화면 디자인에서는 `styled-components`을 사용하여 레이아웃을 정합니다. 스타일시트는 부트스트랩 3.3을 적용합니다.
 
   
