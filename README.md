@@ -18,7 +18,7 @@
 
 * CKEditor 5 Classic 에디터  
   CKEditor는 다양한 플러그인들이 제공되므로 필요한 플러그인을 사용하여 에디터를 구성할 수 있습니다. 직접 설정할 수도 있지만 
-  공식 사이트에서 제공되는 [온라인 빌더](https://ckeditor.com/ckeditor-5/online-builder/) 를 사용하여 에디터를 
+  공식 사이트에서 제공되는 [온라인 빌더](https://ckeditor.com/ckeditor-5/online-builder/)를 사용하여 에디터를 
   커스터마이징할 수 있습니다.
   
   온라인 빌더를 통해 만들어진 에디터는 ckeditor5.zip 파일로 다운로드 받게 됩니다. 압축을 해제한 후 리액트 프로젝트의 루트에 복사합니다. 그리고 다음 명령어를 통해 설치합니다.
